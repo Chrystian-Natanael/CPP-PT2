@@ -1,6 +1,0 @@
-[submodule "googletest"]
-	path = googletest
-	url = git@github.com:google/googletest.git
-[submodule "CPP05/ex00/tests/googletest"]
-	path = CPP05/ex00/tests/googletest
-	url = git@github.com:google/googletest.git

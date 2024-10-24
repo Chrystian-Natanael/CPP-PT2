@@ -39,11 +39,13 @@ SRCS_PATH = src/
 INCS_PATH = includes/
 BUILD_DIR := build/
 TARGET_DIR = bin/
+GTEST_DIR = tests/googletest
 
 #* ******************************************************************************#
 #                                   FILES                                        #
 #* ******************************************************************************#
 
+GTEST_REPO = git@github.com:google/googletest.git
 SRCS = $(wildcard $(SRCS_PATH)*$(FILE_EXTENSION))
 OBJS = $(SRCS:%$(FILE_EXTENSION)=$(BUILD_DIR)%.o)
 DEPS = $(OBJS:.o=.d)
@@ -127,10 +129,14 @@ clean:
 fclean: clean
 	$(RM) $(TARGET_DIR)
 	$(RM) tests/build/
+	$(RM) $(GTEST_DIR)
 
 re: fclean all
 
-tests:
+$(GTEST_DIR):
+	git clone $(GTEST_REPO) $(GTEST_DIR)
+
+tests: $(GTEST_DIR)
 	cd tests && cmake -B build && $(MAKE) -C build && ./build/run_tests
 
 run:
