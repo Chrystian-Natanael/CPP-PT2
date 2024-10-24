@@ -1,1 +1,4 @@
 googletest/
+tests/build
+build/
+bin/
