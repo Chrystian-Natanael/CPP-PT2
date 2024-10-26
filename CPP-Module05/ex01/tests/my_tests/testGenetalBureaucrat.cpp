@@ -1,9 +1,21 @@
 #include <gtest/gtest.h>
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 class BureaucratTest : public ::testing::Test {
 protected:
 	Bureaucrat* bureaucrat;
+
+	std::string captureOutput(std::function<void()> func) {
+		std::ostringstream oss;
+		std::streambuf* oldCoutBuffer = std::cout.rdbuf();
+
+		std::cout.rdbuf(oss.rdbuf());
+		func();
+		std::cout.rdbuf(oldCoutBuffer);
+
+		return oss.str();
+	}
 
 	void SetUp() override {
 		bureaucrat = new Bureaucrat("Von Buroc", 75);
@@ -79,4 +91,28 @@ TEST_F(BureaucratTest, OutputOperator) {
 	std::ostringstream oss;
 	oss << *bureaucrat;
 	EXPECT_EQ(oss.str(), "Von Buroc, bureaucrat grade 75");
+}
+
+// Teste da função signForm()
+TEST_F(BureaucratTest, SignFormFail) {
+	Form form("Internship Form", 50, 2);
+
+	std::string output = captureOutput([&]() {
+		bureaucrat->signForm(form);
+	});
+	
+	EXPECT_EQ(output, "Von Buroc couldn’t sign Internship Form because Form: GradeTooLowException.\n");
+}
+
+TEST_F(BureaucratTest, SignFormSucess) {
+	Form form("Internship Form", 50, 2);
+
+	while (bureaucrat->getGrade() > 50)
+			bureaucrat->incrementGrade();
+
+	std::string output = captureOutput([&]() {
+		bureaucrat->signForm(form);
+	});
+
+	EXPECT_EQ(output, "Von Buroc signed Internship Form\n");
 }

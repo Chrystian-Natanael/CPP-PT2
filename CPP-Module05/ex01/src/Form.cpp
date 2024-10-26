@@ -25,8 +25,8 @@ Form::~Form(void) {}
 Form &Form::operator=(Form const &rhs) {
 	if (this != &rhs) {
 		const_cast<std::string &>(this->_name) = rhs._name;
-		this->_gradeToExecute = rhs._gradeToExecute;
-		this->_gradeToSign = rhs._gradeToSign;
+		const_cast<int &>(this->_gradeToExecute) = rhs._gradeToExecute;
+		const_cast<int &>(this->_gradeToSign) = rhs._gradeToSign;
 		this->_isSigned = rhs._isSigned;
 	}
 	return (*this);
