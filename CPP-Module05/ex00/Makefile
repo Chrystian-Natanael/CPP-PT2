@@ -45,8 +45,14 @@ GTEST_DIR = tests/googletest
 #                                   FILES                                        #
 #* ******************************************************************************#
 
+
+SRCS = $(addprefix $(SRCS_PATH), \
+	Bureaucrat.cpp \
+	main.cpp\
+	)
+
 GTEST_REPO = git@github.com:google/googletest.git
-SRCS = $(wildcard $(SRCS_PATH)*$(FILE_EXTENSION))
+# SRCS = $(wildcard $(SRCS_PATH)*$(FILE_EXTENSION))
 OBJS = $(SRCS:%$(FILE_EXTENSION)=$(BUILD_DIR)%.o)
 DEPS = $(OBJS:.o=.d)
 

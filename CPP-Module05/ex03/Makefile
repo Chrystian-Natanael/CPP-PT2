@@ -2,7 +2,7 @@
 #                                   NAME                                         #
 #* ******************************************************************************#
 
-NAME = maggots
+NAME = intern
 FILE_EXTENSION = .cpp
 .DEFAULT_GOAL := all
 .PHONY: all clean fclean re tests help
@@ -48,7 +48,11 @@ GTEST_DIR = tests/googletest
 GTEST_REPO = git@github.com:google/googletest.git
 SRCS = $(addprefix $(SRCS_PATH), \
 	Bureaucrat.cpp \
-	Form.cpp \
+	AForm.cpp \
+	PresidentialPardonForm.cpp \
+	RobotomyRequestForm.cpp \
+	ShrubberyCreationForm.cpp \
+	Intern.cpp \
 	main.cpp \
 )
 # SRCS = $(wildcard $(SRCS_PATH)*$(FILE_EXTENSION))
@@ -70,7 +74,7 @@ SHELL := /bin/bash
 #* ******************************************************************************#
 
 CFLAGS = -std=c++98 -Wall -Wextra -Werror
-DFLAGS = -std=c++98 -Wall -Wextra -Werror -g3
+DFLAGS = -std=c++98 -Wall -Wextra -Werror -g3 -fsanitize=address
 LDLIBS = -ldl -lglfw -pthread
 CPPFLAGS = $(addprefix -I,$(INCS_PATH)) -MMD -MP
 COMP_OBJ = $(COMP) $(CFLAGS) $(CPPFLAGS) -c $< -o $@

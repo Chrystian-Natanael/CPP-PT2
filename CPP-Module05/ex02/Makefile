@@ -2,8 +2,8 @@
 #                                   NAME                                         #
 #* ******************************************************************************#
 
-NAME = #! INSERT NAME
-FILE_EXTENSION = #! INSER FILE EXTENSION
+NAME = forms
+FILE_EXTENSION = .cpp
 .DEFAULT_GOAL := all
 .PHONY: all clean fclean re tests help
 .SILENT:
@@ -35,20 +35,26 @@ RESET = \033[0m
 #                                   PATH                                         #
 #* ******************************************************************************#
 
-SRCS_PATH = #! INSERT SRC PATH
-INCS_PATH = #! INSERT INCLUDES PATH
-BUILD_DIR := #! INSERT BUILD PATH
-TARGET_DIR = #! INSERT BIN PATH
-LIBFT_DIR := #! INSERT LIBFT PATH IN USE CASE
-GTEST_DIR = tests/googletest #! VERIFY PATH OF TESTER
+SRCS_PATH = src/
+INCS_PATH = includes/
+BUILD_DIR := build/
+TARGET_DIR = bin/
+GTEST_DIR = tests/googletest
 
 #* ******************************************************************************#
 #                                   FILES                                        #
 #* ******************************************************************************#
 
 GTEST_REPO = git@github.com:google/googletest.git
-LIBS := $(LIBFT_DIR)libft.a #! REMOVE IN NON USE CASE
-SRCS = $(wildcard $(SRCS_PATH)*$(FILE_EXTENSION))
+SRCS = $(addprefix $(SRCS_PATH), \
+	Bureaucrat.cpp \
+	AForm.cpp \
+	PresidentialPardonForm.cpp \
+	RobotomyRequestForm.cpp \
+	ShrubberyCreationForm.cpp \
+	main.cpp \
+)
+# SRCS = $(wildcard $(SRCS_PATH)*$(FILE_EXTENSION))
 OBJS = $(SRCS:%$(FILE_EXTENSION)=$(BUILD_DIR)%.o)
 DEPS = $(OBJS:.o=.d)
 
@@ -59,20 +65,19 @@ DEPS = $(OBJS:.o=.d)
 MKDIR := mkdir -p
 RM := rm -rf
 SLEEP = sleep 0.1
-COMP = c++ #! INSERT C OR CPP COMPILER
+COMP = c++
 SHELL := /bin/bash
 
 #* ******************************************************************************#
 #                                 FLAGS E COMP                                   #
 #* ******************************************************************************#
 
-CFLAGS = -std=c++98 -Wall -Wextra -Werror #! INSERT C OR CPP FLAGS
-DFLAGS = -std=c++98 -Wall -Wextra -Werror -g3 -fsanitize=address #! INSERT C OR CPP FLAGS
+CFLAGS = -std=c++98 -Wall -Wextra -Werror
+DFLAGS = -std=c++98 -Wall -Wextra -Werror -g3 -fsanitize=address
 LDLIBS = -ldl -lglfw -pthread
-LDFLAGS = $(addprefix -L,$(dir $(LIBS))) #! REMOVE IN NON USE CASE
 CPPFLAGS = $(addprefix -I,$(INCS_PATH)) -MMD -MP
 COMP_OBJ = $(COMP) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
-COMP_EXE = $(COMP) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $(TARGET_DIR)$(NAME) #! REMOVE LDFLAGS IN NON USE CASE
+COMP_EXE = $(COMP) $(OBJS) $(LDLIBS) -o $(TARGET_DIR)$(NAME)
 
 #* ******************************************************************************#
 #                                  FUNCTIONS                                     #
@@ -114,7 +119,7 @@ endef
 #                                   TARGETS                                      #
 #* ******************************************************************************#
 
-all: $(LIBFT) $(NAME) #! REMOVE LIBFT IN NON USE CASE
+all: $(NAME)
 
 $(BUILD_DIR)%.o: %$(FILE_EXTENSION)
 	$(call create_dir)
