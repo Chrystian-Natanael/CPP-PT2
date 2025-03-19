@@ -6,7 +6,7 @@
 /*   By: cnatanae <cnatanae@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 16:52:23 by cnatanae          #+#    #+#             */
-/*   Updated: 2025/03/14 14:46:12 by cnatanae         ###   ########.fr       */
+/*   Updated: 2025/03/19 19:28:28 by cnatanae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void BitcoinExchange::makeExchange(const std::string& input) const {
 	}
 
 	std::map<std::string, float>::const_iterator iter = data.lower_bound(date);
-	if (iter == data.end()) {
+	if (iter == data.end() || (iter != data.begin() && iter->first != date)) {
 		iter--;
 	}
 	std::cout << date << " => " << value << " = "

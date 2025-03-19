@@ -45,8 +45,7 @@ TARGET_DIR = bin/
 #* ******************************************************************************#
 
 SRCS = $(addprefix $(SRCS_PATH), \
-	RPN.cpp\
-	Utils.cpp\
+	PmergeMe.cpp\
 	main.cpp\
 	)
 OBJS = $(SRCS:%$(FILE_EXTENSION)=$(BUILD_DIR)%.o)

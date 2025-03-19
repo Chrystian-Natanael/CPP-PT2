@@ -6,7 +6,7 @@
 /*   By: cnatanae <cnatanae@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:50:26 by cnatanae          #+#    #+#             */
-/*   Updated: 2025/03/14 15:52:49 by cnatanae         ###   ########.fr       */
+/*   Updated: 2025/03/19 17:28:29 by cnatanae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ bool doubleDigit(const std::string &str) {
 		while (::isspace(*it)) {
 			++it;
 		}
-		if (::isdigit(*it) && ::isdigit(*(it + 1))) {
+		if (isdigit(*it) && isdigit(*(it + 1))) {
 			return (true);
 		} else if (isOp(*it) && isOp(*(it + 1)))
 			return (true);
@@ -96,7 +96,7 @@ bool nbOp(const std::string &str) {
 	for (std::string::const_iterator it = str.begin(); it != str.end(); ++it) {
 		if (isOp(*it)) {
 			++op;
-		} else if (::isdigit(*it)) {
+		} else if (isdigit(*it)) {
 			++nb;
 		}
 	}
